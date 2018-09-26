@@ -35,7 +35,7 @@ const MainMenuData = [
 const MainMenu = () => (
   <div>
     {MainMenuData.map(menu => (
-      <div>
+      <div key={menu.title}>
         <Link to={menu.route}>
           <button className="button_style">{menu.title}</button>
         </Link>

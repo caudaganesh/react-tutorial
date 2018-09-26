@@ -11,30 +11,31 @@ export default class StateAndLifecycle extends React.Component {
   state = {
     users: [],
     buttonText: "ADD",
-    isLoading: false,
-    isFinishFetching: false
+    isLoading: false
   };
 
-  componentWillMount() {
-    console.log("COMPONENT WILL MOUNT");
-    console.log("START FETCHING");
-    setTimeout(() => {
-      console.log(`FINALLY FINISSSHHH !!!!!!!!!!!!!!!!!!!!`);
-    }, 5000);
-  }
+  //   componentWillMount() {
+  //     console.log("COMPONENT WILL MOUNT");
+  //     console.log("START FETCHING");
+  //     setTimeout(() => {
+  //       console.log(`FINALLY FINISSSHHH !!!!!!!!!!!!!!!!!!!!`);
+  //     }, 5000);
+  //   }
 
-  componentWillUpdate() {
-    console.log("COMPONENT WILL UPDATE");
-  }
+  //   componentWillUpdate() {
+  //     console.log("COMPONENT WILL UPDATE");
+  //   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log("PARENT COMPONENT DID UPDATE", "PREVSTATE", prevState);
-  }
+  //   componentDidUpdate(prevProps, prevState) {
+  //     console.log("PARENT COMPONENT DID UPDATE", "PREVSTATE", prevState);
+  //   }
 
-  onAddButtonPress = () => {
+  addUserToList = () => {
+    const { userName } = this.props;
+    userName && this.props.onClearTextInput();
     const id = this.state.users.length;
     const newUser = {
-      userName: `TOPED_${id}`,
+      userName: userName || `TOPED_${this.state.users.length}`,
       isActive: false,
       textColor: getRandomColor(),
       isSuperUser: true,
@@ -51,15 +52,19 @@ export default class StateAndLifecycle extends React.Component {
     }, 2000);
   };
 
+  onAddButtonPress = () => {
+    this.addUserToList();
+  };
+
   render() {
-    console.log("PARENT RENDER");
+    console.log("PARENT RENDER", this.state);
     const { users, isLoading, buttonText } = this.state;
     return (
       <div>
         <AddButton
           buttonText={buttonText}
           onButtonClick={this.onAddButtonPress}
-          disabled={isLoading}
+          disabled={isLoading || this.props.buttonDisabled}
         />
         <br />
         {users.map(user => (

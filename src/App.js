@@ -9,6 +9,7 @@ import Jsx from "./containers/Jsx";
 import ComponentsAndProps from "./containers/ComponentsAndProps";
 import ConditionalRendering from "./containers/ConditionalRendering";
 import StateAndLifecycle from "./containers/StateAndLifecycle";
+import EventHandler from "./containers/EventHandler";
 
 import {
   JSX_URL,
@@ -41,7 +42,7 @@ const ROUTES = [
   },
   {
     url: EVENT_HANDLER_URL,
-    component: Home
+    component: EventHandler
   }
 ];
 
@@ -58,7 +59,12 @@ class App extends Component {
           </header>
           <div>
             {ROUTES.map(route => (
-              <Route exact path={route.url} component={route.component} key ={route.url}/>
+              <Route
+                exact
+                path={route.url}
+                component={route.component}
+                key={route.url}
+              />
             ))}
           </div>
         </div>
